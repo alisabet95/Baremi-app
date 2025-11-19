@@ -27,6 +27,7 @@ export default function RootLayout() {
       try {
         // Enable RTL support globally
         I18nManager.allowRTL(true);
+        I18nManager.forceRTL(true);
         // Load fonts
         await loadFonts();
       } catch (e) {

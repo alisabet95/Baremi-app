@@ -13,9 +13,12 @@ export const lightColors = {
   shadow: "#00000020",
   activeButton: "#3b82f620",
   langToggleBg: "#e2e8f0",
+  opIconsecond: "#300101ff",
+
   opIcon: "#ffffff",
-  toggleTrack: "#e2e8f0",
-  toggleTrackActive: "#001638ff",
+  toggleTrack: "#001d43ff",
+  toggleTrackActive: "#2bf887ff",
+  textSecondary: "#000",
   toggleKnob: "#ffffff",
   endIcon: "#f3ee99ff", // Changed to black
 };
@@ -25,8 +28,10 @@ export const darkColors = {
   text: "#f1f5f9",
   buttonBg: "#1e293b",
   buttonText: "#cbd5e1",
-  operatorBg: "#e4f404ff",
+  operatorBg: "#abfcdeff",
   operatorText: "#0f172a",
+  textSecondary: "#000",
+  opIconsecond: "#f6e5abff",
   displayBg: "#1e293b",
   clearBg: "#f87171",
   clearText: "#0f172a",
@@ -36,7 +41,7 @@ export const darkColors = {
   langToggleBg: "#334155",
   opIcon: "#0f172a",
   toggleTrack: "#334155",
-  toggleTrackActive: "#001732ff",
-  toggleKnob: "#7cd4e2ff",
+  toggleTrackActive: "#19ef64ff",
+  toggleKnob: "#acf2b1ff",
   endIcon: "#b2eceeff", // Changed to black for dark mode too
 };

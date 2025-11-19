@@ -12,6 +12,7 @@ import {
   useColorScheme,
   View,
 } from "react-native";
+import { Switch } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BgColor from "../components/BgColor";
 
@@ -19,20 +20,15 @@ export default function Index() {
   const systemScheme = useColorScheme();
   const [isDark, setIsDark] = useState(systemScheme === "dark");
   const colors = isDark ? darkColors : lightColors;
-
   // Language state
   const [lang, setLang] = useState<"fa" | "en">("fa");
-
   // Animation refs
   const opAnim = useRef(new Animated.Value(0)).current;
   const displayAnim = useRef(new Animated.Value(1)).current;
-  const slideValue = useRef(new Animated.Value(0)).current; // 0 for + (left), 1 for - (right)
-
   // Track last pressed button
   const [lastPressedButton, setLastPressedButton] = useState<number | null>(
     null
   );
-
   // Translations
   const t = {
     toggleLang: lang === "fa" ? "En" : "فا",
@@ -41,24 +37,20 @@ export default function Index() {
     title: lang === "fa" ? "بارمی" : "Baremi",
     lastInput: lang === "fa" ? "آخرین ورودی: " : "Last input: ",
   };
-
   // Force RTL on lang change
   useEffect(() => {
     I18nManager.forceRTL(lang === "fa");
   }, [lang]);
-
   // Dynamic StatusBar for visibility over gradient
   useEffect(() => {
     const bgColor = isDark ? "#0f172a" : "#f8fafc";
     StatusBar.setBackgroundColor(bgColor, true);
     StatusBar.setBarStyle(isDark ? "light-content" : "dark-content");
   }, [isDark]);
-
   // Calculator state
   const [total, setTotal] = useState(0);
   const [currentOp, setCurrentOp] = useState("+");
   const [lastInput, setLastInput] = useState<number | null>(null);
-
   // Dynamic button labels
   const baseButtons = [
     { value: 0.25 },
@@ -78,7 +70,6 @@ export default function Index() {
       lang === "fa" ? parseFloat(rawLabel).toLocaleString("fa-IR") : rawLabel;
     return { ...btn, label };
   });
-
   const handleNumberPress = (value: number) => {
     Animated.sequence([
       Animated.timing(displayAnim, {
@@ -92,25 +83,12 @@ export default function Index() {
         useNativeDriver: true,
       }),
     ]).start();
-
     const newTotal = currentOp === "+" ? total + value : total - value;
     setTotal(newTotal);
     setLastInput(value);
     setLastPressedButton(value);
   };
-
   const toggleOperation = () => {
-    const targetValue = currentOp === "+" ? 1 : 0;
-
-    // Slide animation - knob moves to cover the opposite operation
-    Animated.spring(slideValue, {
-      toValue: targetValue,
-      damping: 15,
-      mass: 1,
-      stiffness: 200,
-      useNativeDriver: true,
-    }).start();
-
     // Pulse animation for the operator icon
     Animated.sequence([
       Animated.timing(opAnim, {
@@ -126,10 +104,8 @@ export default function Index() {
         useNativeDriver: true,
       }),
     ]).start();
-
     setCurrentOp(currentOp === "+" ? "-" : "+");
   };
-
   const clear = () => {
     Animated.sequence([
       Animated.timing(displayAnim, {
@@ -143,18 +119,14 @@ export default function Index() {
         useNativeDriver: true,
       }),
     ]).start();
-
     setTotal(0);
     setCurrentOp("+");
     setLastInput(null);
     setLastPressedButton(null); // Reset the highlighted button
-    slideValue.setValue(0);
     opAnim.setValue(0);
   };
-
   const toggleLang = () => setLang(lang === "fa" ? "en" : "fa");
   const toggleTheme = () => setIsDark(!isDark);
-
   // Format number
   const formatNumber = (num: number): string => {
     if (lang === "fa") {
@@ -165,7 +137,6 @@ export default function Index() {
     }
     return Number.isInteger(num) ? num.toString() : num.toFixed(2);
   };
-
   // Get button background color based on pressed state
   const getButtonBackgroundColor = (value: number) => {
     if (lastPressedButton === value) {
@@ -173,7 +144,6 @@ export default function Index() {
     }
     return colors.buttonBg;
   };
-
   // Get button text color based on pressed state
   const getButtonTextColor = (value: number) => {
     if (lastPressedButton === value) {
@@ -181,12 +151,10 @@ export default function Index() {
     }
     return colors.buttonText;
   };
-
   // Fonts
   const getNumberFont = () => (lang === "fa" ? "ShabnamDigit" : "Inter");
   const getTextFont = () => (lang === "fa" ? "Shabnam" : "Inter");
   const getOpFont = () => (lang === "fa" ? "ShabnamBold" : "Inter");
-
   // Animations
   const opRotate = opAnim.interpolate({
     inputRange: [0, 1],
@@ -196,18 +164,10 @@ export default function Index() {
     inputRange: [0, 1],
     outputRange: [1, 1.2],
   });
-
-  // Toggle animations - knob moves to cover the opposite icon
-  const knobTranslateX = slideValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-54, 0], // Adjusted for proper spacing (2px padding on each side)
-  });
-
   const opIconSource =
     currentOp === "+"
       ? require("../assets/plus.png")
       : require("../assets/minus.png");
-
   return (
     <BgColor theme={isDark ? "dark" : "light"}>
       <SafeAreaView style={styles.container}>
@@ -251,7 +211,6 @@ export default function Index() {
             </TouchableOpacity>
           </View>
         </View>
-
         {/* Display with animation */}
         <Animated.View
           style={[
@@ -286,7 +245,6 @@ export default function Index() {
               />
             </Animated.View>
           </TouchableOpacity>
-
           <Text
             style={[
               styles.displayText,
@@ -296,7 +254,6 @@ export default function Index() {
             {formatNumber(total)}
           </Text>
         </Animated.View>
-
         {/* Last Input Display */}
         {lastInput !== null && (
           <View style={styles.lastInputContainer}>
@@ -313,7 +270,6 @@ export default function Index() {
             </Text>
           </View>
         )}
-
         {/* Buttons Grid */}
         <View
           style={[
@@ -348,56 +304,26 @@ export default function Index() {
             </TouchableOpacity>
           ))}
         </View>
-
-        {/* Enhanced Operation Toggle Button */}
+        {/* Operation Switch with Icon */}
         <View style={styles.opButtons}>
-          <TouchableOpacity
-            style={[
-              styles.toggleContainer,
-              {
-                backgroundColor: colors.toggleTrack,
-                shadowColor: colors.shadow,
-              },
-            ]}
-            onPress={toggleOperation}
-            activeOpacity={0.8}
-          >
-            <View
-              style={[
-                styles.toggleTrack,
-                {
-                  backgroundColor: colors.toggleTrackActive,
-                },
-              ]}
+          <View style={styles.opSwitchContainer}>
+            <Switch
+              value={currentOp === "+"}
+              onValueChange={toggleOperation}
+              trackColor={{
+                false: colors.toggleTrack,
+                true: colors.toggleTrackActive,
+              }}
+              thumbColor={colors.toggleKnob}
+              ios_backgroundColor={colors.toggleTrack}
             />
-
-            <View style={styles.toggleIcons}>
-              <ExpoImage
-                source={require("../assets/plus.png")}
-                style={styles.toggleEndIcon}
-                tintColor={colors.endIcon}
-                contentFit="contain"
-              />
-              <ExpoImage
-                source={require("../assets/minus.png")}
-                style={styles.toggleEndIcon}
-                tintColor={colors.endIcon}
-                contentFit="contain"
-              />
-            </View>
-
-            <Animated.View
-              style={[
-                styles.toggleKnob,
-                {
-                  backgroundColor: colors.toggleKnob,
-                  transform: [{ translateX: knobTranslateX }],
-                  shadowColor: colors.shadow,
-                },
-              ]}
-            ></Animated.View>
-          </TouchableOpacity>
-
+            <ExpoImage
+              source={opIconSource}
+              style={styles.switchIcon}
+              tintColor={colors.opIconsecond}
+              contentFit="contain"
+            />
+          </View>
           <TouchableOpacity
             style={[
               styles.clearButton,
@@ -513,59 +439,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
   },
-  // Enhanced Toggle Styles
-  toggleContainer: {
-    height: 60,
-    width: 102,
-    borderRadius: 30, // More rounded for better appearance
-    justifyContent: "center",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 6,
-    overflow: "hidden",
-    position: "relative",
-  },
-  toggleTrack: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderRadius: 30,
-  },
-  toggleIcons: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  // Switch Container Styles
+  opSwitchContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
     alignItems: "center",
-    paddingHorizontal: 16,
-  },
-  toggleEndIcon: {
-    width: 28, // Slightly larger for better visibility
-    height: 28,
-  },
-  toggleKnob: {
-    position: "absolute",
-    top: 1,
-    bottom: 1,
-    width: 48,
-    borderRadius: 22,
+    gap: 8,
+    width: 80,
     justifyContent: "center",
-    alignItems: "center",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 4,
-    zIndex: 10,
   },
-  knobIcon: {
-    width: 10,
-    height: 10,
+  switchIcon: {
+    width: 24,
+    height: 24,
   },
   clearButton: {
     width: 72,
