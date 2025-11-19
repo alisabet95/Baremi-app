@@ -1,3 +1,4 @@
+// const/Colors.ts
 export const lightColors = {
   background: "#f8fafc",
   text: "#1e293b",

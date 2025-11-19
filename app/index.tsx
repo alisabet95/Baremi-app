@@ -28,6 +28,11 @@ export default function Index() {
   const displayAnim = useRef(new Animated.Value(1)).current;
   const slideValue = useRef(new Animated.Value(0)).current; // 0 for + (left), 1 for - (right)
 
+  // Track last pressed button
+  const [lastPressedButton, setLastPressedButton] = useState<number | null>(
+    null
+  );
+
   // Translations
   const t = {
     toggleLang: lang === "fa" ? "En" : "فا",
@@ -91,6 +96,7 @@ export default function Index() {
     const newTotal = currentOp === "+" ? total + value : total - value;
     setTotal(newTotal);
     setLastInput(value);
+    setLastPressedButton(value);
   };
 
   const toggleOperation = () => {
@@ -141,6 +147,7 @@ export default function Index() {
     setTotal(0);
     setCurrentOp("+");
     setLastInput(null);
+    setLastPressedButton(null); // Reset the highlighted button
     slideValue.setValue(0);
     opAnim.setValue(0);
   };
@@ -157,6 +164,22 @@ export default function Index() {
       });
     }
     return Number.isInteger(num) ? num.toString() : num.toFixed(2);
+  };
+
+  // Get button background color based on pressed state
+  const getButtonBackgroundColor = (value: number) => {
+    if (lastPressedButton === value) {
+      return isDark ? "#166534" : "#22c55e"; // Dark green for dark mode, green for light mode
+    }
+    return colors.buttonBg;
+  };
+
+  // Get button text color based on pressed state
+  const getButtonTextColor = (value: number) => {
+    if (lastPressedButton === value) {
+      return isDark ? "#f0fdf4" : "#f0fdf4"; // Light text for better contrast on green
+    }
+    return colors.buttonText;
   };
 
   // Fonts
@@ -304,7 +327,7 @@ export default function Index() {
               style={[
                 styles.numberButton,
                 {
-                  backgroundColor: colors.buttonBg,
+                  backgroundColor: getButtonBackgroundColor(btn.value),
                   borderColor: colors.border,
                   shadowColor: colors.shadow,
                 },
@@ -315,7 +338,7 @@ export default function Index() {
                 style={[
                   styles.buttonText,
                   {
-                    color: colors.buttonText,
+                    color: getButtonTextColor(btn.value),
                     fontFamily: getNumberFont(),
                   },
                 ]}

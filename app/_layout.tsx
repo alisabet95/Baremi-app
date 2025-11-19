@@ -2,7 +2,7 @@
 import * as Font from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { I18nManager } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -15,7 +15,7 @@ export default function RootLayout() {
         Shabnam: require("../assets/fonts/shabnam/Shabnam-Medium.ttf"),
         ShabnamBold: require("../assets/fonts/shabnam/Shabnam-Bold.ttf"),
         ShabnamDigit: require("../assets/fonts/shabnam/Shabnam-Bold-FD.ttf"),
-        Inter: require("../assets/fonts/inter/Inter-Bold.ttf"), // Your cool 4th font!
+        Inter: require("../assets/fonts/inter/Inter-Bold.ttf"),
       });
     } catch (error) {
       console.error("Error loading fonts:", error);
