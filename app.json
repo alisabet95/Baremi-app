@@ -19,7 +19,8 @@
         "backgroundColor": "#2b4635"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "jsEngine": "hermes"
     },
     "web": {
       "output": "static",
