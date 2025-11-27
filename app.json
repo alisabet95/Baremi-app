@@ -2,7 +2,7 @@
   "expo": {
     "name": "بارمی",
     "slug": "calcut",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "scheme": "calcut",
@@ -13,6 +13,7 @@
       "bundleIdentifier": "com.alisabet1995.calcut"
     },
     "android": {
+      "versionCode": 3,
       "package": "com.alisabet1995.calcut",
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
