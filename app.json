@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "بارمی",
+    "name": "بارمجون",
     "slug": "calcut",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/baremjoon.png",
     "scheme": "calcut",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,11 +13,11 @@
       "bundleIdentifier": "com.alisabet1995.calcut"
     },
     "android": {
-      "versionCode": 5,
-      "version": "5.0.0",
+      "versionCode": 6,
+      "version": "5.0.1",
       "package": "com.alisabet1995.calcut",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo.png",
+        "foregroundImage": "./assets/baremjoon.png",
         "backgroundColor": "#2b4635"
       },
       "edgeToEdgeEnabled": true,
