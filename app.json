@@ -2,7 +2,7 @@
   "expo": {
     "name": "بارمجون",
     "slug": "calcut",
-    "version": "5.0.1",
+    "version": "5.0.2",
     "orientation": "portrait",
     "icon": "./assets/baremjoon.png",
     "scheme": "calcut",
@@ -13,12 +13,12 @@
       "bundleIdentifier": "com.alisabet1995.calcut"
     },
     "android": {
-      "versionCode": 6,
-      "version": "5.0.1",
+      "versionCode": 7,
+      "version": "5.0.2",
       "package": "com.alisabet1995.calcut",
       "adaptiveIcon": {
         "foregroundImage": "./assets/baremjoon.png",
-        "backgroundColor": "#2b4635"
+        "backgroundColor": "#f6f1dd"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -36,9 +36,9 @@
           "image": "./assets/splash.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#2b4635",
+          "backgroundColor": "#f6f1dd",
           "dark": {
-            "backgroundColor": "#2b4635"
+            "backgroundColor": "#f6f1dd"
           }
         }
       ]

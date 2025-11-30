@@ -1,5 +1,5 @@
 import { darkColors, lightColors } from "@/const/Colors";
-import { Image as ExpoImage } from "expo-image";
+import { Image as ExpoImage, Image } from "expo-image";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
@@ -34,7 +34,7 @@ export default function Index() {
     toggleLang: lang === "fa" ? "En" : "فا",
     toggleTheme: isDark ? "☀️" : "🌙",
     clear: lang === "fa" ? "پاک" : "C",
-    title: lang === "fa" ? "بارمی" : "Baremi",
+    title: lang === "fa" ? "بارمجون" : "Baremjoon",
     lastInput: lang === "fa" ? "آخرین ورودی: " : "Last input: ",
   };
   // Force RTL on lang change
@@ -171,16 +171,21 @@ export default function Index() {
   return (
     <BgColor theme={isDark ? "dark" : "light"}>
       <SafeAreaView style={styles.container}>
-        {/* Header with Toggles */}
         <View style={styles.header}>
-          <Text
-            style={[
-              styles.title,
-              { color: colors.text, fontFamily: getTextFont() },
-            ]}
-          >
-            {t.title}
-          </Text>
+          <View style={{ marginTop: 0 }}>
+            <Image
+              source={require("../assets/baremjoonhome.png")}
+              style={{
+                width: 20,
+                height: 30,
+              }}
+            />
+            <Image
+              source={require("../assets/home.png")}
+              style={{ width: 120, height: 40, marginTop: -10 }}
+            />
+          </View>
+
           <View style={styles.toggleCluster}>
             <TouchableOpacity
               style={[
