@@ -2,10 +2,11 @@
   "expo": {
     "name": "بارمجون",
     "slug": "calcut",
-    "version": "5.0.2",
+    "version": "5.0.3",
     "orientation": "portrait",
     "icon": "./assets/baremjoon.png",
     "scheme": "calcut",
+    "jsEngine": "hermes",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,8 +14,9 @@
       "bundleIdentifier": "com.alisabet1995.calcut"
     },
     "android": {
-      "versionCode": 7,
-      "version": "5.0.2",
+      "versionCode": 8,
+      "version": "5.0.3",
+
       "package": "com.alisabet1995.calcut",
       "adaptiveIcon": {
         "foregroundImage": "./assets/baremjoon.png",
